@@ -1,0 +1,43 @@
+INICIO
+
+// Limpia el entorno de trabajo
+Limpiar la consola, variables y cerrar ventanas de figura
+
+// DEFINICIÓN DE LA FUNCIÓN: newton_interp_3rd_degree
+ENTRADA:
+    x_points     ← vector de puntos x conocidos (4 elementos)
+    y_points     ← vector de valores y correspondientes (4 elementos)
+    x_eval       ← punto donde se desea interpolar
+    valor_real   ← valor exacto o conocido de la función para calcular el error
+
+PROCESO:
+    1. Verificar que los vectores x_points y y_points tengan la misma longitud
+    2. Crear una matriz F de ceros de tamaño n x n
+    3. Asignar la primera columna de F con los valores y_points
+    4. Calcular diferencias divididas usando la fórmula:
+        Para j desde 2 hasta n
+            Para i desde 1 hasta (n - j + 1)
+                F(i,j) ← (F(i+1,j-1) - F(i,j-1)) / (x_points(i+j-1) - x_points(i))
+
+    5. Inicializar y_interp ← F(1,1)
+    6. Para cada término adicional del polinomio (desde k = 2 hasta n):
+        Inicializar term ← 1
+        Para m desde 1 hasta (k-1):
+            term ← term * (x_eval - x_points(m))
+        y_interp ← y_interp + F(1,k) * term
+
+    7. Calcular el error porcentual relativo:
+        error ← ABS((y_interp - valor_real) / valor_real) * 100
+
+SALIDA:
+    Devolver y_interp y error
+
+// USO DEL PROGRAMA PRINCIPAL
+
+1. Definir los puntos conocidos x_points y y_points
+2. Definir el punto de evaluación x_eval
+3. Calcular el valor real usando la función logaritmo natural
+4. Llamar a la función newton_interp_3rd_degree con los valores definidos
+5. Imprimir la estimación y el error calculado
+
+FIN
